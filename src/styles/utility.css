@@ -1,0 +1,4 @@
+.full-screen {
+  height: 100vh;
+  width: 100vw; /* Optional, as div is block-level and takes full width by default */
+}
