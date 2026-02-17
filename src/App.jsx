@@ -6,12 +6,10 @@ import { CartProvider } from './context/cart-context'
 
 function App() {
   return (
-    <CartProvider>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
-    </CartProvider>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/cart" element={<Cart />} />
+    </Routes>
   )
 }
 
