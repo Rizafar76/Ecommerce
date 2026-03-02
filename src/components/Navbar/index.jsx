@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../customHooks/useCart";
+import { useLogin } from "../../customHooks/useLogin";
 
 const Navbar = () => {
     const navigate = useNavigate();
     const { cart } = useCart();
+    const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
+    const { token,loginDispatch } = useLogin()
+    const onLoginClick = () => {
+        if (token?.access_token) {
+            navigate("/home");
+        } else {
+            loginDispatch({ type: "LOGOUT" });
+            navigate("/login");
+        }
+    }
 
     const goToHome = () => navigate("/");
     const goToCart = () => navigate("/cart");
@@ -31,8 +42,13 @@ const Navbar = () => {
                             </span>
                         )}
                     </button>
-                    <button className="text-slate-600 hover:text-blue-900 transition-colors">
-                        <span className="material-symbols-outlined">account_circle</span>
+                    <button className="text-slate-600 hover:text-blue-900 transition-colors relative">
+                        <span onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)} className="material-symbols-outlined">account_circle</span>
+                        {
+                            isAccountDropdownOpen && <div className="absolute  bg-green-400 "><button onClick={onLoginClick}>{
+                                token?.access_token ? "Logout" : "Login"
+                            }</button></div>
+                        }
                     </button>
                 </nav>
             </div>
